@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Early Exit Countdown</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-blue-200 min-h-screen flex flex-col items-center justify-center text-gray-800 font-sans px-4">
+    <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
+        <h1 class="text-3xl font-bold mb-6 text-center text-indigo-700">Early Exit Countdown</h1>
+        {% if not date %}
+        <form method="POST" class="flex flex-col space-y-4">
+            <label for="exit_date" class="text-sm font-medium">Select Your Early Exit Date:</label>
+            <input type="date" id="exit_date" name="exit_date" required value="2033-08-12"
+                   class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <input type="hidden" name="exit_time" value="12:00:00">
+            <button type="submit"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition">
+                Start Countdown
+            </button>
+        </form>
+        {% else %}
+        <p class="text-center text-lg mb-4">Counting down to your Early Exit on:</p>
+        <p class="text-center font-semibold text-xl text-indigo-800 mb-6">{{ formatted_date }}</p>
+        <div id="timer" data-enddate="{{ date }}"
+             class="text-center text-3xl font-mono text-indigo-700 bg-indigo-100 rounded-lg p-4 shadow-inner">
+        </div>
+        <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+        {% endif %}
+    </div>
+</body>
+</html>
